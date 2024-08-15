@@ -1,10 +1,10 @@
-name: Main
+name: Release
 on: push
 
 jobs:
   release:
     # We use Ubuntu 20.04 to have an older version of the file tool.
-    # If we used a newer Ubuntu it it would complain about incompatible magic
+    # If we used a newer Ubuntu, it would complain about incompatible magic
     # file format on older Ubuntu versions.
     runs-on: ubuntu-20.04
 

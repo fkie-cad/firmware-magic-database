@@ -1,0 +1,16 @@
+name: Build CI
+on: pull_request
+
+jobs:
+  release:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Make
+        run: sudo apt-get install make
+
+      - name: Build
+        run: make all
