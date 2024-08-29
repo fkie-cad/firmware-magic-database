@@ -1,4 +1,6 @@
-all: firmware.mgc
+all: mgc firmware
+
+mgc: firmware.mgc
 
 firmware.mgc: firmware
 	file -C -m firmware
@@ -9,3 +11,4 @@ firmware:
 clean:
 	rm -f firmware
 	rm -f firmware.mgc
+	rm -f firmware.xz

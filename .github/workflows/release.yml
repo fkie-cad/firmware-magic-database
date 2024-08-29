@@ -5,23 +5,25 @@ on:
 
 jobs:
   release:
-    # We use Ubuntu 20.04 to have an older version of the file tool.
-    # If we used a newer Ubuntu it it would complain about incompatible magic
-    # file format on older Ubuntu versions.
-    runs-on: ubuntu-20.04
+    # Compiled magic files are incompatible with older and (for whatever
+    # reason) also newer versions of `file`.
+    # Therefore, we only release the concatenated, compressed source file.
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Install Make
-        run: sudo apt-get install make
+        run: sudo apt-get install make xz-utils
 
       - name: Build
-        run: make all
+        run: |
+          make firmware
+          xz -f -7 -k firmware
 
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: firmware.mgc
+          files: firmware.xz
