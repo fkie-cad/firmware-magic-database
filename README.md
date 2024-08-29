@@ -6,12 +6,17 @@ and deletes all the code and just keeps the magic definitions (despite
 Thus, this repository is also licensed under the GPLv3.
 
 ## Installation
-Run `make` to create a compiled mime database `firmware.mgc`.
-Alternatively, you can head over to the [releases][releases] and download the
-compiled database from there.
+Run `make` to create two files: A compiled mime database `firmware.mgc` and a
+non-compiled mime database `firmware`.
+Alternatively, you can head over to the [releases][releases] to download the
+non-compiled database from there.
+The downloaded file needs to be uncompressed before it can be used with `file`.
+Note that the compiled database is only of use if your version of `file` is the
+same as the version that the database was compiled.
+For this reason, you can only download the non-compiled version.
 
-For example, you can put this in the directory shown by `file -v` to make use of
-it when using the standard unix `file` tool.
+Use these files by setting the `MAGIC` environment variable,
+for more information see `magic(5)`.
 
 
 [fact_helper_file]: https://github.com/fkie-cad/fact_helper_file/commit/17065a2d81bfdebd3425427eefaca9857087c763
