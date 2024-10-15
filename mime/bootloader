@@ -77,6 +77,33 @@
 >8  byte    !0x2E       {invalid}
 >0  string  x           "%s"
 
+# Flattened Device Tree
+0	belong	0xd00dfeed	Flattened Device Tree header,
+!:mime firmware/fdt
+>4	belong	x		total size: %d,
+>8	belong	x		structure offset: %d,
+>12	belong	x		strings offset: %d,
+>16	belong	x		memory reserve map offset: %d,
+>20	belong	x		version: %d,
+
+>20	belong	1
+>>24	belong	x		last compatible version: %d
+
+>20	belong 	2
+>>24	belong	x		last compatible version: %d,
+>>28	belong	x		boot cpu id: %d
+
+>20	belong	3
+>>24	belong	x		last compatible version: %d,
+>>28	belong	x		boot cpu id: %d,
+>>32	belong	x		strings block size: %d
+
+>20	belong	17
+>>24	belong	x		last compatible version: %d,
+>>28	belong	x		boot cpu id: %d,
+>>32	belong	x		strings block size: %d,
+>>36	belong	x		structure block size: %d
+
 # CFE bootloader
 # original code from binwalk
 0	string	CFE1	    CFE boot loader
