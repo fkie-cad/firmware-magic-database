@@ -778,3 +778,155 @@
 >8	ubelong+0x120	x		{size:%d}
 >12	ubelong		x		data CRC: 0x%08x,
 >16	string		x		key id: %.4s)
+
+## Senao / EnGenius firmware containers
+
+# Variant 1 (long header)
+92  ubelong 0x12345678
+>96 string  all   Senao firmware container,
+!:mime firmware/senao-v1a
+>>4  ubelong x   vendor ID: %d,
+>>8  ubelong x   product ID: %d,
+>>12  string  x   version: %s,
+>>28  ubelong x   type: %d
+>>28  ubelong 1    (bootloader),
+>>28  ubelong 2    (kernel),
+>>28  ubelong 3    (kernelapp),
+>>28  ubelong 4    (apps),
+>>28  ubelong 5    (littleapps/factoryapps),
+>>28  ubelong 6    (sounds/littleapps),
+>>28  ubelong 7    (userconfig/appdata),
+>>28  ubelong 8    (userconfig),
+>>28  ubelong 9    (odmapps),
+>>28  ubelong 10    (factoryapps),
+>>28  ubelong 11    (odmapps),
+>>28  ubelong 12    (langpack),
+>>32  ubelong x   size: %d,
+>>40  ubequad x   chksum: %llx,
+>>92  ubelong x   magic: 0x%x,
+>>0x84  ubelong 5
+>>>0x88    string  x   model: %.5s
+>>0x84  ubelong 6
+>>>0x88    string  x   model: %.6s
+>>0x84  ubelong 7
+>>>0x88    string  x   model: %.7s
+>>0x84  ubelong 8
+>>>0x88    string  x   model: %.8s
+>>0x84  ubelong 9
+>>>0x88    string  x   model: %.9s
+>>0x84  ubelong 10
+>>>0x88    string  x   model: %.10s
+>>0x84  ubelong 11
+>>>0x88    string  x   model: %.11s
+>>0x84  ubelong 12
+>>>0x88    string  x   model: %.12s
+>>0x84  ubelong 13
+>>>0x88    string  x   model: %.13s
+>>0x84  ubelong 14
+>>>0x88    string  x   model: %.14s
+
+# Variant 1 (short header)
+92  ubelong 0x12345678
+>96   string !all  Senao firmware container,
+!:mime firmware/senao-v1b
+>>4  ubelong x   vendor ID: %d,
+>>8  ubelong x   product ID: %d,
+>>12  string  x   version: %s,
+>>28  ubelong x   type: %d
+>>28  ubelong 1    (bootloader),
+>>28  ubelong 2    (kernel),
+>>28  ubelong 3    (kernelapp),
+>>28  ubelong 4    (apps),
+>>28  ubelong 5    (littleapps/factoryapps),
+>>28  ubelong 6    (sounds/littleapps),
+>>28  ubelong 7    (userconfig/appdata),
+>>28  ubelong 8    (userconfig),
+>>28  ubelong 9    (odmapps),
+>>28  ubelong 10    (factoryapps),
+>>28  ubelong 11    (odmapps),
+>>28  ubelong 12    (langpack),
+>>32  ubelong x   size: %d,
+>>40  ubequad x   chksum: %llx,
+>>92  ubelong x   magic: 0x%x
+
+# Variant 2 (long header)
+180 ubelong 0x30471688  Senao firmware container,
+!:mime firmware/senao-v2a
+>0x3c  ubelong x   type: %d
+>0x3c  ubelong 1    (bootloader),
+>0x3c  ubelong 3    (kernel),
+>0x3c  ubelong 5    (apps),
+>0x3c  ubelong 7    (userconfig),
+>0x3c  ubelong 11    (factoryapps),
+>0x3c  ubelong 13    (langpack),
+>0x3c  ubelong 15    (cust_logo),
+>0x3c  ubelong 17    (cust_apps),
+>0x28  string  x   code version: %s,
+>0x0  string  x   vendor: %s,
+>0x8  string  x   model: %s,
+>0x62   ubelong x   hardware ID: 0x%x,
+>0x66  string  x   version ID: %s,
+>0x7e  ubequad x   md5: %016llx,
+>0xb4   ubelong x   magic: 0x%x
+
+# Variant 2 (long header) alternative
+102 string  "3047"  Senao firmware container,
+!:mime firmware/senao-v2a
+>0x3c  ubelong x   type: %d
+>0x3c  ubelong 1    (bootloader),
+>0x3c  ubelong 3    (kernel),
+>0x3c  ubelong 5    (apps),
+>0x3c  ubelong 7    (userconfig),
+>0x3c  ubelong 11    (factoryapps),
+>0x3c  ubelong 13    (langpack),
+>0x3c  ubelong 15    (cust_logo),
+>0x3c  ubelong 17    (cust_apps),
+>0x28  string  x   code version: %s,
+>0x0  string  x   vendor: %s,
+>0x8  string  x   model: %s,
+>0x62   ubelong x   hardware ID: 0x%x,
+>0x66  string  x   version ID: %s,
+>0x7e  ubequad x   md5: %016llx,
+>0xb4   ubelong x   magic: 0x%x
+
+# Variant 2 (short header)
+124 ubelong 0x30471688  Senao firmware container,
+!:mime firmware/senao-v2b
+>0x04  ubelong x   type: %d
+>0x04  ubelong 1    (bootloader),
+>0x04  ubelong 3    (kernel),
+>0x04  ubelong 5    (apps),
+>0x04  ubelong 7    (userconfig),
+>0x04  ubelong 11    (factoryapps),
+>0x04  ubelong 13    (langpack),
+>0x04  ubelong 15    (cust_logo),
+>0x04  ubelong 17    (cust_apps),
+>0x19  string  x   code version: %s,
+>0x2a   ubelong x   hardware ID: 0x%x,
+>0x2e  string  x   version ID: %s,
+>0x3e   ubelong x   comp_file_len: %d,
+>0x42   ubelong x   comp_file_sum: 0x%x,
+>0x46  ubequad x   md5: %016llx,
+>0x78   ubelong x   header sum: 0x%x,
+>0x7c   ubelong x   magic: 0x%x
+
+# Variant 2 (short header) alternative
+46  string  "3047"  Senao firmware container,
+!:mime firmware/senao-v2b
+>0x04  ubelong x   type: %d
+>0x04  ubelong 1    (bootloader),
+>0x04  ubelong 3    (kernel),
+>0x04  ubelong 5    (apps),
+>0x04  ubelong 7    (userconfig),
+>0x04  ubelong 11    (factoryapps),
+>0x04  ubelong 13    (langpack),
+>0x04  ubelong 15    (cust_logo),
+>0x04  ubelong 17    (cust_apps),
+>0x19  string  x   code version: %s,
+>0x2a   ubelong x   hardware ID: 0x%x,
+>0x2e  string  x   version ID: %s,
+>0x3e   ubelong x   comp_file_len: %d,
+>0x42   ubelong x   comp_file_sum: 0x%x,
+>0x46  ubequad x   md5: %016llx,
+>0x78   ubelong x   header sum: 0x%x,
+>0x7c   ubelong x   magic: 0x%x
