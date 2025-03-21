@@ -83,3 +83,50 @@
 !:mime bootloader/cfe
 >4  string  !CFE1       {invalid}
 >40	string	CFE1CFE1	{invalid}
+
+# custom Netgear U-Boot bootloader
+# which is effectively a regular U-Boot header with a different magic at the start
+# see also target/linux/ath79/image/generic.mk in the OpenWRT project
+0      belong    0x31303031
+# linux (OS)
+>0x1c   byte    0x05
+# kernel image (image type)
+>>0x1e   byte    0x02   Netgear uImage Linux kernel image, header size: 64 bytes,
+!:mime firmware/u-boot
+>8     bedate    x              created: %s
+
+0      belong    0x32303033
+>0x1c   byte    0x05
+>>0x1e   byte    0x02   Netgear uImage Linux kernel image, header size: 64 bytes,
+!:mime firmware/u-boot
+>8     bedate    x              created: %s
+
+0      belong    0x32303631
+>0x1c   byte    0x05
+>>0x1e   byte    0x02   Netgear uImage Linux kernel image, header size: 64 bytes,
+!:mime firmware/u-boot
+>8     bedate    x              created: %s
+
+0      belong    0x32323030
+>0x1c   byte    0x05
+>>0x1e   byte    0x02   Netgear uImage Linux kernel image, header size: 64 bytes,
+!:mime firmware/u-boot
+>8     bedate    x              created: %s
+
+0      belong    0x33373030
+>0x1c   byte    0x05
+>>0x1e   byte    0x02   Netgear uImage Linux kernel image, header size: 64 bytes,
+!:mime firmware/u-boot
+>8     bedate    x              created: %s
+
+0      belong    0x33373031
+>0x1c   byte    0x05
+>>0x1e   byte    0x02   Netgear uImage Linux kernel image, header size: 64 bytes,
+!:mime firmware/u-boot
+>8     bedate    x              created: %s
+
+0      belong    0x33373033
+>0x1c   byte    0x05
+>>0x1e   byte    0x02   Netgear uImage Linux kernel image, header size: 64 bytes,
+!:mime firmware/u-boot
+>8     bedate    x              created: %s
