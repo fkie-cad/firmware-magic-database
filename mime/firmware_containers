@@ -934,3 +934,8 @@
 >0x46  ubequad x   md5: %016llx,
 >0x78   ubelong x   header sum: 0x%x,
 >0x7c   ubelong x   magic: 0x%x
+
+# Buffalo Inc.
+
+0  ubelong  0x62676e00  Buffalo Inc. firmware image
+!:mime firmware/buffalo
