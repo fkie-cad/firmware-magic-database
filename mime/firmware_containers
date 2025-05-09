@@ -706,6 +706,11 @@
 0       string  \x53\x48\x52\x53    D-Link SHRS
 !:mime firmware/dlink-shrs
 
+# D-Link MH01
+0       string  MH01
+>0x10   string  MH01    D-Link MH01 encrypted firmware image
+!:mime firmware/dlink-mh01
+
 # D-Link encrypted image
 0   string  encrpted_img    D-Link encrypted firmware image
 !:mime firmware/dlink-encrpted-img
