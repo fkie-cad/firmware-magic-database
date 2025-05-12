@@ -947,3 +947,8 @@
 >0x04  ubelong x   Image CRC: 0x%x,
 >0x08  ubelong x   Image Size: %d,
 >0x10   string  x   Image Name: %s
+
+# Buffalo Inc.
+
+0  ubelong  0x62676e00  Buffalo Inc. firmware image
+!:mime firmware/buffalo
