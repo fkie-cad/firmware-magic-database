@@ -472,3 +472,9 @@
 >16		lelong	x			\b, Total of %d
 >12		lelong	x			\b %d-byte output blocks in
 >20		lelong	x			\b %d input chunks.
+
+# VMware4 VMDK disk image
+0	string/b	VMDK		 VMware4 disk image
+!:mime filesystem/vmdk
+0	string/b	KDMV		 VMware4 disk image
+!:mime filesystem/vmdk
