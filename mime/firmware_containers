@@ -954,22 +954,22 @@
 !:mime firmware/buffalo
 
 # Intel (MaxLinear) UImage v2
-0       search/0x1000   VER2Intel_Unified_Image\x00                             Intel (MaxLinear) UImage v2,
+0       search/0x2000   VER2Intel_Unified_Image\x00                             Intel (MaxLinear) UImage v2,
 !:mime  firmware/maxlinear-uimage-v2
 >&12    ubelong         x                                                       size: %d
 
 # Intel (MaxLinear) UImage v2 Alternative
-0       search/0x1000   VER2Puma7_UImage\x00\x00\x00\x00\x00\x00\x00\x00        Intel (MaxLinear) UImage v2,
+0       search/0x2000   VER2Puma7_UImage\x00\x00\x00\x00\x00\x00\x00\x00        Intel (MaxLinear) UImage v2,
 !:mime  firmware/maxlinear-uimage-v2
 >&12    ubelong         x                                                       size: %d
 
 # Intel (MaxLinear) UImage v3
-0       search/0x1000   VER3Intel_Unified_Image\x00                             Intel (MaxLinear) UImage v3,
+0       search/0x2000   VER3Intel_Unified_Image\x00                             Intel (MaxLinear) UImage v3,
 !:mime  firmware/maxlinear-uimage-v3
 >&12    ubelong         x                                                       size: %d
 
 # Intel (MaxLinear) UImage v3 Alternative
-0       search/0x1000   VER3Puma7_UImage\x00\x00\x00\x00\x00\x00\x00\x00        Intel (MaxLinear) UImage v3,
+0       search/0x2000   VER3Puma7_UImage\x00\x00\x00\x00\x00\x00\x00\x00        Intel (MaxLinear) UImage v3,
 !:mime  firmware/maxlinear-uimage-v3
 >&12    ubelong         x                                                       size: %d
 
