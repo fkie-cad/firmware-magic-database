@@ -980,3 +980,8 @@
 # secure version number
 >>>&0   ubelong         x
 >>>&4   pstring/L       x                                     model name: %s
+
+# D-Link DWL
+0   string  \x64\x80\x19\x40    D-Link DWL firmware image,
+>0x4   string  x   model: %s
+!:mime  firmware/dlink-dwl
