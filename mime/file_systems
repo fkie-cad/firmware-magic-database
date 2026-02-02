@@ -297,8 +297,25 @@
 !:mime  filesystem/ntfs
 
 # DOS/MBR signifier (55AA)
-0x1FE      string   \x55\xAA     DOS boot sector
-!:mime filesystem/dosmbr
+0x0 byte    0xeb
+>0x1FE      string   \x55\xAA     x86 boot sector
+0x0 byte    0xe9
+>0x1FE      string   \x55\xAA     x86 boot sector
+!:strength -30
+
+# status of drive (should be 0x00 or 0x80)
+0x1BE       byte     0x00
+>0x1C2      byte     >0x00
+# number of sections in partition 1 should be >0
+>>0x1CA     lelong   >0
+>>>0x1FE    leshort  0xAA55       DOS/MBR boot sector
+!:mime  filesystem/dosmbr
+
+0x1BE       byte     0x80
+>0x1C2      byte     >0x00
+>>0x1CA     lelong   >0
+>>>0x1FE    leshort  0xAA55       DOS/MBR boot sector
+!:mime  filesystem/dosmbr
 
 
 9564	lelong		0x00011954	Unix Fast File system [v1] (little-endian),
