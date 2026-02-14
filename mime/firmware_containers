@@ -940,6 +940,26 @@
 >0x78   ubelong x   header sum: 0x%x,
 >0x7c   ubelong x   magic: 0x%x
 
+# Variant 3 (very long header)
+284 ubelong 0x30471688  Senao firmware container with prepended D-Link header,
+!:mime firmware/senao-v2c
+>0xa4  ubelong x   type: %d
+>0xa4  ubelong 1    (bootloader),
+>0xa4  ubelong 3    (kernel),
+>0xa4  ubelong 5    (apps),
+>0xa4  ubelong 7    (userconfig),
+>0xa4  ubelong 11    (factoryapps),
+>0xa4  ubelong 13    (langpack),
+>0xa4  ubelong 15    (cust_logo),
+>0xa4  ubelong 17    (cust_apps),
+>0x0  string  x   vendor: %s,
+>0x38  string  x   model: %s,
+>0x28  string  x   version: %s,
+>0xce  string  x   version ID: %s,
+>0xde  ubelong x   payload size: %d,
+>0xe8  ubequad x   md5: %016llx,
+>0x11c   ubelong x   key: 0x%x
+
 # GM8126 SPI Flash Image Header
 0   string  \x80\x5a\x47\x4d    GM8126 SPI Flash Image Header,
 !:mime firmware/gm8126
