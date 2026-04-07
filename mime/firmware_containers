@@ -980,3 +980,14 @@
 # secure version number
 >>>&0   ubelong         x
 >>>&4   pstring/L       x                                     model name: %s
+
+# Puma 8 Vendor Image
+0		search/4096	\x1c\x00\x00\x2b
+>0		byte		0x30
+>>1		byte		0x82
+>>>4		search/512	CableLabs\ CVC\ Certification\ Authority	(CableLabs Certificate Authority)
+>>>>0		search/4096	\x1c\x00\x00\x2b				Puma 8 Vendor Image
+!:mime		firmware/puma-8-vendor-image
+>>>>>&0		beshort		x						header len: %d,
+>>>>>&4		byte		x						vendor len: %d,
+>>>>>&5		regex		[[:alnum:][:blank:][:punct:]]+			vendor: %s
