@@ -736,6 +736,10 @@
 >-49    string  DrayTekImageMD5
 >-33    string  x                  MD5 (footer): %s
 
+# Draytek RTOS Firmware
+9       string  DkmfaaryTedecz  Draytek RTOS Firmware Container
+!:mime firmware/draytek-rtos
+
 # Instar BNEG container type
 0       string  \x42\x4e\x45\x47    Instar BNEG Firmware Container
 !:mime	firmware/bneg
