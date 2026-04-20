@@ -145,3 +145,7 @@
 !:mime	application/x-archive
 0   string  =<ar>		System V Release 1 ar archive
 !:mime	application/x-archive
+
+# InstallShield Z archive
+0   string  \x13\x5D\x65\x8C\x3A\x01\x02\x00    InstallShield Z archive
+!:mime application/x-isz
