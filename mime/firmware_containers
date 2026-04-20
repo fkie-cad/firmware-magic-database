@@ -39,25 +39,11 @@
 
 
 # ---- NETGEAR ----
-# TRX/CHK
-58		string		HDR0	TRX firmware,
-!:mime firmware/trx
->51	string		NETGEAR		vendor: Netgear,
->62      lelong        <1      {invalid}
->62      ulelong       x       image size: %d bytes,
->66      ulelong       x       CRC32: 0x%X,
->70     uleshort      x       flags: 0x%X,
->72     uleshort      !1
->>72    uleshort      !2      {invalid}
->72     uleshort      2       version: %d, header size: 32 bytes,
->>74    ulelong       x       loader offset: 0x%X,
->>78    ulelong       x       linux kernel offset: 0x%X,
->>82    ulelong       x       rootfs offset: 0x%X,
->>86    ulelong       x       bin-header offset: 0x%X
->72     uleshort      1       version: %d, header size: 28 bytes,
->>74    ulelong       x       loader offset: 0x%X,
->>78    ulelong       x       linux kernel offset: 0x%X,
->>82    ulelong       x       rootfs offset: 0x%X
+0		string		*#$^	Netgear CHK firmware container,
+!:mime firmware/netgear-chk
+>24     belong      x       kernel size: %d,
+>28     belong      x       rootfs size: %d,
+>0x28   string      x       board ID: %.10s
 
 
 # trx image file
