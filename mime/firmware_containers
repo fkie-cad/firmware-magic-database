@@ -995,3 +995,7 @@
 >>>>>&0		beshort		x						header len: %d,
 >>>>>&4		byte		x						vendor len: %d,
 >>>>>&5		regex		[[:alnum:][:blank:][:punct:]]+			vendor: %s
+
+# D-Link DSL DEAFBEAD container
+0   string  \xDE\xAF\xBE\xAD    D-Link DEAFBEAD container
+!:mime  firmware/d-link-deafbead
