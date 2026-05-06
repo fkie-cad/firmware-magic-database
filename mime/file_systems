@@ -157,32 +157,57 @@
 #>0x464	lelong          &0x0000020      (many subdirs)
 #>0x463	lelong          &0x0000040      (extra isize)
 
-# Minix filesystems - Juan Cespedes <cespedes@debian.org>
-0x410	leshort		0x137f
-!:strength / 2
->0x402	beshort		< 100
->0x402	beshort		> -1		Minix filesystem, V1, 14 char names, %d zones
+# Minix filesystems
+# based on linux/minix_fs.h
+0x410	leshort		0x137f  MINIX filesystem v1, little endian, 14 byte file names,
 !:mime filesystem/minix
->0x1e	string		minix		\b, bootable
-0x410	beshort		0x137f
-!:strength / 2
->0x402	beshort		< 100
->0x402	beshort		> -1		Minix filesystem, V1 (big endian), %d zones
+>0x400	leshort		x   %d inodes
+
+0x410	leshort		0x138f  MINIX filesystem v1, little endian, 30 byte file names,
 !:mime filesystem/minix
->0x1e	string		minix		\b, bootable
-0x410	leshort		0x138f
-!:strength / 2
->0x402	beshort		< 100
->0x402	beshort		> -1		Minix filesystem, V1, 30 char names, %d zones
+>0x400	leshort		x   %d inodes
+
+0x410	beshort		0x137f  MINIX filesystem v1, big endian, 14 byte file names,
 !:mime filesystem/minix
->0x1e	string		minix		\b, bootable
-0x410	beshort		0x138f
-!:strength / 2
->0x402	beshort		< 100
->0x402	beshort		> -1		Minix filesystem, V1, 30 char names (big endian), %d zones
+>0x400	beshort		x   %d inodes
+
+0x410	beshort		0x138f  MINIX filesystem v1, big endian, 30 byte file names,
 !:mime filesystem/minix
->0x1e	string		minix		\b, bootable
+>0x400	beshort		x   %d inodes
+
+0x410	leshort		0x2468  MINIX filesystem v2, little endian, 14 byte file names,
 !:mime filesystem/minix
+>0x400	leshort		x   %d inodes,
+>0x414	lelong		x   %d blocks
+
+0x410	leshort		0x2478  MINIX filesystem v2, little endian, 30 byte file names,
+!:mime filesystem/minix
+>0x400	leshort		x   %d inodes,
+>0x414	lelong		x   %d blocks
+
+0x410	beshort		0x2468  MINIX filesystem v2, big endian, 14 byte file names,
+!:mime filesystem/minix
+>0x400	beshort		x   %d inodes,
+>0x414	belong		x   %d blocks
+
+0x410	beshort		0x2478  MINIX filesystem v2, big endian, 30 byte file names,
+!:mime filesystem/minix
+>0x400	beshort		x   %d inodes,
+>0x414	belong		x   %d blocks
+
+0x418	leshort		0x4d5a
+>0x41a	leshort		0     MINIX filesystem v3, little endian,
+!:mime filesystem/minix
+>0x400	lelong		x   %d inodes,
+>0x414	lelong		x   %d blocks,
+>0x41c	leshort		x   blocksize %d
+
+0x418	beshort		0x4d5a
+>0x41a	beshort		0     MINIX filesystem v3, big endian,
+!:mime filesystem/minix
+>0x400	belong		x   %d inodes,
+>0x414	belong		x   %d blocks,
+>0x41c	beshort		x   blocksize %d
 
 # *.hfs updated by Joerg Jenderek
 # http://en.wikipedia.org/wiki/Hierarchical_File_System
