@@ -50,10 +50,22 @@
 >28 leshort >3
 >>8	ledate	x	created: %s
 
-0	string	qshs	Squashfs filesystem
+0	string	sqlz	Squashfs filesystem (non-standard), big endian
 !:mime filesystem/squashfs
 
-0	string	shsq	Squashfs filesystem
+0	string	zlqs	Squashfs filesystem (non-standard), little endian
+!:mime filesystem/squashfs
+
+0	string	tqsh	Squashfs filesystem (ddwrt), big endian
+!:mime filesystem/squashfs
+
+0	string	hsqt	Squashfs filesystem (ddwrt), little endian
+!:mime filesystem/squashfs
+
+0	string	qshs	Squashfs filesystem (Broadcom), big endian
+!:mime filesystem/squashfs
+
+0	string	shsq	Squashfs filesystem (Broadcom), little endian
 !:mime filesystem/squashfs
 
 ## AVM Squashfs Fake
