@@ -985,3 +985,8 @@
 # D-Link DSL DEAFBEAD container
 0   string  \xDE\xAF\xBE\xAD    D-Link DEAFBEAD container
 !:mime  firmware/d-link-deafbead
+
+# CommScope (ARRIS) Set-Top Box
+0	search/0x1000/b		PACK			CommScope (ARRIS) Set-Top Box,
+!:mime	firmware/commscope-arris-stb
+>&0	belong			x			image size: %d
