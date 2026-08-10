@@ -985,3 +985,8 @@
 # D-Link DSL DEAFBEAD container
 0   string  \xDE\xAF\xBE\xAD    D-Link DEAFBEAD container
 !:mime  firmware/d-link-deafbead
+
+# CommScope (Pace) Set-Top Box
+0	string	Pace		CommScope (Pace) Set-Top Box,
+!:mime	firmware/commscope-pace-stb
+>4	belong	x		image size: %d
