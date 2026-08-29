@@ -17,7 +17,6 @@
 >5	lequad		=0xffffffffffffffff	streamed
 >5	lequad		!0xffffffffffffffff	non-streamed, size %lld
 
-
 # Zlib - Original Code from binwalk
 0    beshort        0x789c        Zlib compressed data, default compression
 !:mime compression/zlib
@@ -35,3 +34,9 @@
 # http://encode.ru/threads/456-zpaq-updates/page32
 0	string	7kSt	ZPAQ file
 !:mime	application/zpaq
+
+# Bzip3
+# See https://github.com/kspalaiologos/bzip3/blob/master/doc/bzip3_format.md
+0   string  BZ3v1   BZip3 compressed data,
+!:mime  application/bzip3
+>5  ulelong x   Max Block Size %d
