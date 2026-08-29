@@ -484,3 +484,9 @@
 >16		lelong	x			\b, Total of %d
 >12		lelong	x			\b %d-byte output blocks in
 >20		lelong	x			\b %d input chunks.
+
+# TP-Link MiniFS
+0		string		MINIFS\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00	MiniFS,
+>16		belong	x   version %d,
+>20		belong	x   %d files
+!:mime filesystem/tp-link-minifs
