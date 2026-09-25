@@ -1,0 +1,97 @@
+# The MIT License (MIT)
+#
+# Copyright (c) 2010-2015 Craig Heffner
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of
+# this software and associated documentation files (the "Software"), to deal in
+# the Software without restriction, including without limitation the rights to
+# use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+# the Software, and to permit persons to whom the Software is furnished to do so,
+# subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+# FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+# COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+# IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+# CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#------------------------------------------------------------------------------
+# The following magic definitions originate from binwalk
+# (https://github.com/ReFirmLabs/binwalk, src/binwalk/magic/firmware) which is
+# licensed under the terms above. They were adapted for firmware-magic-database
+# (e.g. MIME types).
+#------------------------------------------------------------------------------
+
+#Mediatek bootloader signature
+#From xp-dev.com
+0    string        BOOTLOADER!    Mediatek bootloader
+
+# Mediatek
+0   string  SF_BOOT\x00\x00\x00\x00\x00  Mediatek Serial Flash Image
+>12 lelong <1 {invalid}
+>12 lelong >1 {invalid}
+>12 lelong x  Version %d
+
+0   string  EMMC_BOOT\x00\x00\x00    Mediatek EMMC Flash Image
+>12 lelong <1 {invalid}
+>12 lelong >1 {invalid}
+>12 lelong x  Version %d
+
+0   string  NOR_BOOT\x00\x00\x00\x00 Mediatek NOR Flash Image
+>12 lelong <1 {invalid}
+>12 lelong >1 {invalid}
+>12 lelong x  Version %d
+
+0  string BRLYT\x00\x00\x00 Mediatek Boot Header
+>8 lelong <1 {invalid}
+>8 lelong >1 {invalid}
+>8 lelong x Version %d
+
+0 string BBBB Boot section{overlap}
+>8 lelong x Start 0x%X
+>12 lelong x End 0x%X
+>16 lelong &0x1 Load-by-Bootrom
+>16 lelong &0x80000000 Internal-RAM
+>16 lelong &0x7ffffff0 {invalid}
+
+0 string FILE_INFO\x00\x00\x00 Mediatek File Info
+>12 lelong <1 {invalid}
+>12 lelong >1 {invalid}
+>16 leshort 0 File Type: NONE
+>16 leshort 1 File Type: ARM-Bootloader 
+>16 leshort 2 File Type: ARM-External-Bootloader
+>16 leshort 10 File Type: Root-Certificate
+>16 leshort 256 File Type: Primary-MAUI
+>16 leshort 264 File Type: VIVA
+>16 leshort 769 File Type: SECURE_RO_ME
+>18 byte 0 Flash Type: NONE
+>18 byte 1 Flash Type: NOR Flash
+>18 byte 2 Flash Type: NAND Sequential Flash
+>18 byte 3 Flash Type: NAND_TTBL
+>18 byte 4 Flash Type: NAND_FDM50
+>18 byte 5 EMMC-Boot-Region
+>18 byte 6 EMMC-Data-Region
+>18 byte 7 Flash Type: Serial Flash
+>18 byte 255 Flash Type: Device-End
+>18 byte >20 {invalid}
+>19 byte 0 No Signature
+>19 byte 1 Signature Type: PHASH
+>19 byte 2 Signature Type: SINGLE
+>19 byte 3 Signature Type: SINGLE and PHASH
+>19 byte 4 Signature Type: MULTI
+>19 byte 5 Signature Type: TYPE_NUM
+>19 byte 255 Signature Type: TYE_END
+>19 byte >20 {invalid}
+>20 lelong x Load Address: 0x%X
+>24 lelong x File Length: %d
+>28 lelong x Maximum Size: %d
+>32 lelong x Content Offset: 0x%X
+>36 lelong x Signature Length: %d
+>40 lelong x Jump Offset: %d
+>44 lelong &0x1 POST_BUILD_DONE
+>44 lelong &0x2 XIP (Execute In Place)
+>44 lelong &0x4 SLT
+>44 lelong &0xffffff00 {invalid}

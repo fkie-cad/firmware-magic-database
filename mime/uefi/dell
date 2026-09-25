@@ -1,0 +1,10 @@
+# Dell UEFI HDR
+0 string PFS\x2eHDR	Dell HDR-PFS UEFI Image
+!:mime firmware/uefi
+
+0 string \x24TAG\x01\x00\x00\x00\x5D\xc2\x8e\x14	Dell HDR-TAG UEFI Image
+!:mime firmware/uefi
+
+# Dell UEFI k
+2 string \x6b\x17\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x78\xe5\x8c\x8c\x3d\x8a\x1c Dell k UEFI Image
+!:mime firmware/uefi

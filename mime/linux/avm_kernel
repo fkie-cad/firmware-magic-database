@@ -1,0 +1,7 @@
+# AVM Linux Kernel Container
+
+0		string		\x81\x12\xed\xfe	AVM Kernel Image V1
+!:mime linux/avm-kernel-image-v1
+
+0		string		\x12\x91\xed\xfe	AVM Kernel Image V2
+!:mime linux/avm-kernel-image-v2

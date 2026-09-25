@@ -1,0 +1,6 @@
+# FAT and NTFS magic
+0x36      string   FAT          FAT filesystem
+!:mime  filesystem/fat
+
+0x3      string   NTFS          NTFS filesystem
+!:mime  filesystem/ntfs

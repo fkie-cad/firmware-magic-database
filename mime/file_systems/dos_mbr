@@ -1,0 +1,3 @@
+# DOS/MBR signifier (55AA)
+0x1FE      string   \x55\xAA     DOS boot sector
+!:mime filesystem/dosmbr

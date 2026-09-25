@@ -1,0 +1,3 @@
+# jffs2 big endian addaption
+0	leshort 0x8519		Linux jffs2 filesystem data big endian
+!:mime filesystem/jffs2-big

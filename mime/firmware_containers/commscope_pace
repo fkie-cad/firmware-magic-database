@@ -1,0 +1,4 @@
+# CommScope (Pace) Set-Top Box
+0	string	Pace		CommScope (Pace) Set-Top Box,
+!:mime	firmware/commscope-pace-stb
+>4	belong	x		image size: %d

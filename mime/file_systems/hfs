@@ -1,0 +1,75 @@
+# $File: COPYING,v 1.2 2018/09/09 20:33:28 christos Exp $
+# Copyright (c) Ian F. Darwin 1986, 1987, 1989, 1990, 1991, 1992, 1994, 1995.
+# Software written by Ian F. Darwin and others;
+# maintained 1994- Christos Zoulas.
+#
+# This software is not subject to any export provision of the United States
+# Department of Commerce, and may be exported to any country or planet.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice immediately at the beginning of the file, without modification,
+#    this list of conditions, and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#------------------------------------------------------------------------------
+# The following magic definitions originate from the file(1) magic database
+# (https://github.com/file/file, magic/Magdir/macintosh) which is licensed under
+# the terms above. They were adapted for firmware-magic-database (e.g. MIME types).
+#------------------------------------------------------------------------------
+
+# *.hfs updated by Joerg Jenderek
+# http://en.wikipedia.org/wiki/Hierarchical_File_System
+# "BD" gives many false positives
+0x400	beshort			0x4244
+# ftp://ftp.mars.org/pub/hfs/hfsutils-3.2.6.tar.gz/hfsutils-3.2.6/libhfs/apple.h
+# first block of volume bit map (always 3)
+>0x40e	ubeshort		0x0003
+# maximal length of volume name is 27
+>>0x424		ubyte			<28	Macintosh HFS data
+!:mime	filesystem/hfs
+>>>0		beshort			0x4C4B	(bootable)
+#>>>0		beshort			0x0000	(not bootable)
+>>>0x40a	beshort			&0x8000	(locked)
+>>>0x40a	beshort			^0x0100	(mounted)
+>>>0x40a	beshort			&0x0200	(spared blocks)
+>>>0x40a	beshort			&0x0800	(unclean)
+>>>0x47C	beshort			0x482B	(Embedded HFS+ Volume)
+>>>0x414	belong			x	block size: %d,
+>>>0x412	beshort			x	number of blocks: %d,
+>>>0x424	pstring			x	volume name: %s
+
+0x400	beshort			0x482B		Macintosh HFS Extended
+!:mime	filesystem/hfs
+>&0	beshort			x		version %d data
+>0	beshort			0x4C4B		(bootable)
+>0x404	belong			^0x00000100	(mounted)
+>&2	belong			&0x00000200	(spared blocks)
+>&2	belong			&0x00000800	(unclean)
+>&2	belong			&0x00008000	(locked)
+>&6	string			x		last mounted by: '%.4s',
+# really, that should be treated as a belong and we print a string
+# based on the value. TN1150 only mentions '8.10' for "MacOS 8.1"
+>&14	beldate-0x7C25B080	x		created: %s,
+# only the creation date is local time, all other timestamps in HFS+ are UTC.
+>&18	bedate-0x7C25B080	x		last modified: %s,
+>&22	bedate-0x7C25B080	>0		last backup: %s,
+>&26	bedate-0x7C25B080	>0		last checked: %s,
+>&38	belong			x		block size: %d,
+>&42	belong			x		number of blocks: %d,
+>&46	belong			x		free blocks: %d

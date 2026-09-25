@@ -1,0 +1,42 @@
+# $File: COPYING,v 1.2 2018/09/09 20:33:28 christos Exp $
+# Copyright (c) Ian F. Darwin 1986, 1987, 1989, 1990, 1991, 1992, 1994, 1995.
+# Software written by Ian F. Darwin and others;
+# maintained 1994- Christos Zoulas.
+#
+# This software is not subject to any export provision of the United States
+# Department of Commerce, and may be exported to any country or planet.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice immediately at the beginning of the file, without modification,
+#    this list of conditions, and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#------------------------------------------------------------------------------
+# The following magic definitions originate from the file(1) magic database
+# (https://github.com/file/file, magic/Magdir/filesystems) which is licensed under
+# the terms above. They were adapted for firmware-magic-database (e.g. MIME types).
+#------------------------------------------------------------------------------
+
+# SGI XFS filesystem - Nathan Scott <nathans@debian.org>
+0	belong		0x58465342	SGI XFS filesystem data
+!:mime	filesystem/xfs
+>0x4	belong		x		(blksz %d,
+>0x68	beshort		x		inosz %d,
+>0x64	beshort		^0x2004		v1 dirs)
+>0x64	beshort		&0x2004		v2 dirs)

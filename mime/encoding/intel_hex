@@ -1,0 +1,3 @@
+# Intel HEX
+0	regex	\^:[A-F0-9a-f]{8,}$	Intel HEX
+!:mime	firmware/intel-hex

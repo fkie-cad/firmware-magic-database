@@ -1,0 +1,3 @@
+# SDN unpacker (artificial)
+0	string \x53\x44\x4E	FKIE SDN Unpacker
+!:mime	firmware/sdn

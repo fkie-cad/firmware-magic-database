@@ -1,3 +1,7 @@
+SOURCES := $(sort $(wildcard mime/*/*))
+
+.PHONY: all mgc clean
+
 all: mgc firmware
 
 mgc: firmware.mgc
@@ -5,8 +9,8 @@ mgc: firmware.mgc
 firmware.mgc: firmware
 	file -C -m firmware
 
-firmware:
-	cat mime/* > firmware
+firmware: $(SOURCES)
+	cat $(SOURCES) > firmware
 
 clean:
 	rm -f firmware
