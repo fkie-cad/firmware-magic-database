@@ -1,0 +1,60 @@
+# The MIT License (MIT)
+#
+# Copyright (c) 2010-2015 Craig Heffner
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of
+# this software and associated documentation files (the "Software"), to deal in
+# the Software without restriction, including without limitation the rights to
+# use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+# the Software, and to permit persons to whom the Software is furnished to do so,
+# subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+# FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+# COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+# IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+# CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#------------------------------------------------------------------------------
+# The following magic definitions originate from binwalk
+# (https://github.com/ReFirmLabs/binwalk, src/binwalk/magic/firmware) which is
+# licensed under the terms above. They were adapted for firmware-magic-database
+# (e.g. MIME types).
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# Broadcom header format
+#
+0       string          BCRM            Broadcom header,
+!:mime firmware/broadcom
+>4      lelong          <0              {invalid}
+>4      lelong          x               number of sections: %d,
+>>8     lelong          18              first section type: flash
+>>8     lelong          19              first section type: disk
+>>8     lelong          21              first section type: tag
+
+# Another Broadcom firmware header...
+# The header seems to be always 0x100 bytes length and there is more information than the one displayed (not sure about the meaning).
+# Used for example in the EchoLife HG556a router
+0x0	string 	\x38\x00\x00\x00	Broadcom firmware header
+>0x4	string	!Broadcom Corporatio	{invalid}
+>0x18	string	x			%s.
+>0x8E	string	x			Model: %s.
+>0xA2	string	x			Firmware version: %s.
+
+# Header format from: http://skaya.enix.org/wiki/FirmwareFormat
+0       string        \x36\x00\x00\x00          Broadcom 96345 firmware header, header size: 256,
+!:mime firmware/broadcom
+>4      string        !Broadcom
+>>4     string        !\x20\x20\x20\x20         {invalid}
+>41     beshort       !0x2020
+>>41    beshort       !0x0000
+>>>41   string        x                         firmware version: "%.4s",
+>45     beshort       !0x0202
+>>45    beshort       !0x0000
+>>>45   string        x                         board id: "%s",
+>236    ubelong       x                         ~CRC32 header checksum: 0x%X,
+>216    ubelong       x                         ~CRC32 data checksum: 0x%X

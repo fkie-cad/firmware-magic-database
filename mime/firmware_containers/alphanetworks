@@ -1,0 +1,4 @@
+# Alphanetworks firmware update script with binary data
+0       string  #!/bin/sh\nVENDOR
+>0      search/0x7000   \x3d\x3d\x3d\x20\x46\x69\x72\x6d\x77\x61\x72\x65\x20\x42\x6f\x75\x6e\x64\x61\x72\x79\x20\x3d\x3d\x3d    Alphanetworks Camera Firmware Image
+!:mime	firmware/alphanetworks

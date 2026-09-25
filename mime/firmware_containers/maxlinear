@@ -1,0 +1,30 @@
+# Intel (MaxLinear) UImage v2
+0       search/0x2000   VER2Intel_Unified_Image\x00                             Intel (MaxLinear) UImage v2,
+!:mime  firmware/maxlinear-uimage-v2
+>&12    ubelong         x                                                       size: %d
+
+# Intel (MaxLinear) UImage v2 Alternative
+0       search/0x2000   VER2Puma7_UImage\x00\x00\x00\x00\x00\x00\x00\x00        Intel (MaxLinear) UImage v2,
+!:mime  firmware/maxlinear-uimage-v2
+>&12    ubelong         x                                                       size: %d
+
+# Intel (MaxLinear) UImage v3
+0       search/0x2000   VER3Intel_Unified_Image\x00                             Intel (MaxLinear) UImage v3,
+!:mime  firmware/maxlinear-uimage-v3
+>&12    ubelong         x                                                       size: %d
+
+# Intel (MaxLinear) UImage v3 Alternative
+0       search/0x2000   VER3Puma7_UImage\x00\x00\x00\x00\x00\x00\x00\x00        Intel (MaxLinear) UImage v3,
+!:mime  firmware/maxlinear-uimage-v3
+>&12    ubelong         x                                                       size: %d
+
+# Puma 8 Vendor Image
+0		search/4096	\x1c\x00\x00\x2b
+>0		byte		0x30
+>>1		byte		0x82
+>>>4		search/512	CableLabs\ CVC\ Certification\ Authority	(CableLabs Certificate Authority)
+>>>>0		search/4096	\x1c\x00\x00\x2b				Puma 8 Vendor Image
+!:mime		firmware/puma-8-vendor-image
+>>>>>&0		beshort		x						header len: %d,
+>>>>>&4		byte		x						vendor len: %d,
+>>>>>&5		regex		[[:alnum:][:blank:][:punct:]]+			vendor: %s

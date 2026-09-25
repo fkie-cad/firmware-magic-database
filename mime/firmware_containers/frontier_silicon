@@ -1,0 +1,4 @@
+# Frontier Silicon ISU
+0	string \x76\x11\x0\x0\x7c\x0\x0\x0\x01\x0\x0\x0	Frontier Silicon IR2.x image
+!:mime	firmware/fs-isu
+>0x0c	string 	x	\b, version: %s

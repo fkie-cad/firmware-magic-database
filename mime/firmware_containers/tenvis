@@ -1,0 +1,4 @@
+# Tenvis PK2 Container
+# file starts with magic string "PK2"
+0       string  PK2     Tenvis PK2 Container
+!:mime	firmware/pk2

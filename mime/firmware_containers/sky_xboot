@@ -1,0 +1,7 @@
+# Sky Xboot
+0       search/0x1000   \x00\x00\x00\x03----MANIFEST----      Sky Xboot manifest v3,
+>&0     pstring/L       x                                     package type: %s,
+>>&0    pstring/L       x                                     code version: %s,
+# secure version number
+>>>&0   ubelong         x
+>>>&4   pstring/L       x                                     model name: %s

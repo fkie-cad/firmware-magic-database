@@ -1,0 +1,6 @@
+# ---- NETGEAR ----
+0		string		*#$^	Netgear CHK firmware container,
+!:mime firmware/netgear-chk
+>24     belong      x       kernel size: %d,
+>28     belong      x       rootfs size: %d,
+>0x28   string      x       board ID: %.10s

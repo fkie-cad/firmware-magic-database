@@ -1,0 +1,66 @@
+# $File: COPYING,v 1.2 2018/09/09 20:33:28 christos Exp $
+# Copyright (c) Ian F. Darwin 1986, 1987, 1989, 1990, 1991, 1992, 1994, 1995.
+# Software written by Ian F. Darwin and others;
+# maintained 1994- Christos Zoulas.
+#
+# This software is not subject to any export provision of the United States
+# Department of Commerce, and may be exported to any country or planet.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice immediately at the beginning of the file, without modification,
+#    this list of conditions, and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#------------------------------------------------------------------------------
+# The following magic definitions originate from the file(1) magic database
+# (https://github.com/file/file, magic/Magdir/archive) which is licensed under
+# the terms above. They were adapted for firmware-magic-database (e.g. MIME types).
+#------------------------------------------------------------------------------
+
+# ACE archive (from http://www.wotsit.org/download.asp?f=ace)
+# by Stefan `Sec` Zehl <sec@42.org>
+7	string		**ACE**		ACE archive data
+!:mime	application/x-ace
+>15	byte	>0		version %d
+>16	byte	=0x00		\b, from MS-DOS
+>16	byte	=0x01		\b, from OS/2
+>16	byte	=0x02		\b, from Win/32
+>16	byte	=0x03		\b, from Unix
+>16	byte	=0x04		\b, from MacOS
+>16	byte	=0x05		\b, from WinNT
+>16	byte	=0x06		\b, from Primos
+>16	byte	=0x07		\b, from AppleGS
+>16	byte	=0x08		\b, from Atari
+>16	byte	=0x09		\b, from Vax/VMS
+>16	byte	=0x0A		\b, from Amiga
+>16	byte	=0x0B		\b, from Next
+>14	byte	x		\b, version %d to extract
+>5	leshort &0x0080		\b, multiple volumes,
+>>17	byte	x		\b (part %d),
+>5	leshort &0x0002		\b, contains comment
+>5	leshort	&0x0200		\b, sfx
+>5	leshort	&0x0400		\b, small dictionary
+>5	leshort	&0x0800		\b, multi-volume
+>5	leshort	&0x1000		\b, contains AV-String
+>>30	string	\x16*UNREGISTERED\x20VERSION*	(unregistered)
+>5	leshort &0x2000		\b, with recovery record
+>5	leshort &0x4000		\b, locked
+>5	leshort &0x8000		\b, solid
+# Date in MS-DOS format (whatever that is)
+#>18	lelong	x		Created on

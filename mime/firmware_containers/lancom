@@ -1,0 +1,72 @@
+# The MIT License (MIT)
+#
+# Copyright (c) 2010-2015 Craig Heffner
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of
+# this software and associated documentation files (the "Software"), to deal in
+# the Software without restriction, including without limitation the rights to
+# use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+# the Software, and to permit persons to whom the Software is furnished to do so,
+# subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+# FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+# COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+# IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+# CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#------------------------------------------------------------------------------
+# The following magic definitions originate from binwalk
+# (https://github.com/ReFirmLabs/binwalk, src/binwalk/magic/firmware) which is
+# licensed under the terms above. They were adapted for firmware-magic-database
+# (e.g. MIME types).
+#------------------------------------------------------------------------------
+
+# Lancom firmware signatures, courtesy of christophvw
+0    string            ELSF              LANCOM firmware header,
+!:mime firmware/lancom
+>22  string            x                 model: "%s",
+>18  string            x                 firmware version: "%.4s",
+>12  ubyte             255               Rel,
+>12  ubyte             253               alpha,
+>12  ubyte             220               PR,
+>12  ubyte             >0
+>>12 ubyte             <220              RC%d,
+>12  ubyte             >220
+>>12 ubyte-220         <237              RU%d,
+>12  ubyte             0                 dev
+>17  ubyte             >0
+>>17 ubyte             x                 build %d
+#get build date
+>7   ubyte             !63
+#date is stored as string
+>>7  string            x                 ("%.8s")
+
+0    string            ELSO              LANCOM OEM file
+
+0    string            ELSB              LANCOM firmware loader,
+>22  string            x                 model: "%s",
+>18  string            x                 loader version: "%.4s",
+
+0    string            ELSC              LANCOM WWAN firmware
+>4   ubyte             3
+>>5  beshort           0
+>>7  string            x                 \b, "%s"
+
+0               string      ELSP                    LANCOM file entry
+>(198.L+202)    belong      !2
+>>(198.L+202)   belong      !3                      {invalid}
+>202            string      @(RECENT_FIRMWARE)/     \b, file name:
+>>221           string      x                       "%s"
+>>221           string      x                       \b{name:%s}
+>(198.L+202)    belong      2
+>>(198.L+206)   belong      <1                      {invalid}
+>>(198.L+206)   belong      x                       \b, file size: %d bytes
+>>(198.L+206)   belong      x                       \b{size:%d}
+>(198.L+202)    belong      3
+>>&4            string      @(RECENT_FIRMWARE)/     \b, alias:
+>>&23           string      x                       "%s"
+>>(&0.L+4)      belong      x                       \b, file size: %d bytes

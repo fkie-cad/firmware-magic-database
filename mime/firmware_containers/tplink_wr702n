@@ -1,0 +1,4 @@
+# ---- TP-Link ----
+# WR702N
+20 string \x49\x4d\x47\x30\x00\x17	TP-Link WR702N Image
+!:mime firmware/tp-wr702n

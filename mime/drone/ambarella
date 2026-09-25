@@ -1,0 +1,10 @@
+#Ambarella image signature by Fraunhofer FKIE
+
+0xa4	string		\x90\xEB\x24\xA3\x00\x00	Ambarella Image;
+!:mime  firmware/ambarella
+>0		string		x							Device-ID: %s;
+
+#Ambarella Rom FS signature by Fraunhofer FKIE
+
+0x04    string  \x8A\x32\xFC\x66                Ambarella RomFS;
+!:mime  filesystem/ambarella-romfs

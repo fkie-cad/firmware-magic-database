@@ -1,0 +1,5 @@
+# ar archive
+# we don't want to match .deb archives here and negative lookahead is not allowed
+# this should be equivalent to '!<arch>\n(?!deb)'
+0   regex   =!<arch>\n([^d]..|.[^e].|..[^b]|$)  current ar archive
+!:mime	application/x-archive

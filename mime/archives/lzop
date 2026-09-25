@@ -1,0 +1,75 @@
+# $File: COPYING,v 1.2 2018/09/09 20:33:28 christos Exp $
+# Copyright (c) Ian F. Darwin 1986, 1987, 1989, 1990, 1991, 1992, 1994, 1995.
+# Software written by Ian F. Darwin and others;
+# maintained 1994- Christos Zoulas.
+#
+# This software is not subject to any export provision of the United States
+# Department of Commerce, and may be exported to any country or planet.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice immediately at the beginning of the file, without modification,
+#    this list of conditions, and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#------------------------------------------------------------------------------
+# The following magic definitions originate from the file(1) magic database
+# (https://github.com/file/file, magic/Magdir/compress) which is licensed under
+# the terms above. They were adapted for firmware-magic-database (e.g. MIME types).
+#------------------------------------------------------------------------------
+
+# lzop from Markus F.X.J. Oberhumer <markus@oberhumer.com>
+# from: https://github.com/mkosola/lzop
+0	string		\x89\x4c\x5a\x4f\x00\x0d\x0a\x1a\x0a	lzop compressed data
+!:mime	application/x-lzop
+>9	beshort		<0x0940
+>>9	byte&0xf0	=0x00		- version 0.
+>>9	beshort&0x0fff	x		\b%03x,
+>>13	byte		1		LZO1X-1,
+>>13	byte		2		LZO1X-1(15),
+>>13	byte		3		LZO1X-999,
+## >>22	bedate		>0		last modified: %s,
+>>14	byte		=0x00		os: MS-DOS
+>>14	byte		=0x01		os: Amiga
+>>14	byte		=0x02		os: VMS
+>>14	byte		=0x03		os: Unix
+>>14	byte		=0x05		os: Atari
+>>14	byte		=0x06		os: OS/2
+>>14	byte		=0x07		os: MacOS
+>>14	byte		=0x0A		os: Tops/20
+>>14	byte		=0x0B		os: WinNT
+>>14	byte		=0x0E		os: Win32
+>9	beshort		>0x0939
+>>9	byte&0xf0	=0x00		- version 0.
+>>9	byte&0xf0	=0x10		- version 1.
+>>9	byte&0xf0	=0x20		- version 2.
+>>9	beshort&0x0fff	x		\b%03x,
+>>15	byte		1		LZO1X-1,
+>>15	byte		2		LZO1X-1(15),
+>>15	byte		3		LZO1X-999,
+## >>25	bedate		>0		last modified: %s,
+>>17	byte		=0x00		os: MS-DOS
+>>17	byte		=0x01		os: Amiga
+>>17	byte		=0x02		os: VMS
+>>17	byte		=0x03		os: Unix
+>>17	byte		=0x05		os: Atari
+>>17	byte		=0x06		os: OS/2
+>>17	byte		=0x07		os: MacOS
+>>17	byte		=0x0A		os: Tops/20
+>>17	byte		=0x0B		os: WinNT
+>>17	byte		=0x0E		os: Win32

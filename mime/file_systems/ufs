@@ -1,0 +1,156 @@
+# $File: COPYING,v 1.2 2018/09/09 20:33:28 christos Exp $
+# Copyright (c) Ian F. Darwin 1986, 1987, 1989, 1990, 1991, 1992, 1994, 1995.
+# Software written by Ian F. Darwin and others;
+# maintained 1994- Christos Zoulas.
+#
+# This software is not subject to any export provision of the United States
+# Department of Commerce, and may be exported to any country or planet.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice immediately at the beginning of the file, without modification,
+#    this list of conditions, and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#------------------------------------------------------------------------------
+# The following magic definitions originate from the file(1) magic database
+# (https://github.com/file/file, magic/Magdir/filesystems) which is licensed under
+# the terms above. They were adapted for firmware-magic-database (e.g. MIME types).
+#------------------------------------------------------------------------------
+
+9564	lelong		0x00011954	Unix Fast File system [v1] (little-endian),
+!:mime	filesystem/ffs
+>8404	string		x		last mounted on %s,
+#>9504	ledate		x		last checked at %s,
+>8224	ledate		x		last written at %s,
+>8401	byte		x		clean flag %d,
+>8228	lelong		x		number of blocks %d,
+>8232	lelong		x		number of data blocks %d,
+>8236	lelong		x		number of cylinder groups %d,
+>8240	lelong		x		block size %d,
+>8244	lelong		x		fragment size %d,
+>8252	lelong		x		minimum percentage of free blocks %d,
+>8256	lelong		x		rotational delay %dms,
+>8260	lelong		x		disk rotational speed %drps,
+>8320	lelong		0		TIME optimization
+>8320	lelong		1		SPACE optimization
+
+42332	lelong		0x19540119	Unix Fast File system [v2] (little-endian)
+!:mime	filesystem/ffs
+>&-1164	string		x		last mounted on %s,
+>&-696	string		>\0		volume name %s,
+>&-304	leqldate	x		last written at %s,
+>&-1167	byte		x		clean flag %d,
+>&-1168	byte		x		readonly flag %d,
+>&-296	lequad		x		number of blocks %lld,
+>&-288	lequad		x		number of data blocks %lld,
+>&-1332	lelong		x		number of cylinder groups %d,
+>&-1328	lelong		x		block size %d,
+>&-1324	lelong		x		fragment size %d,
+>&-180	lelong		x		average file size %d,
+>&-176	lelong		x		average number of files in dir %d,
+>&-272	lequad		x		pending blocks to free %lld,
+>&-264	lelong		x		pending inodes to free %d,
+>&-664	lequad		x		system-wide uuid %0llx,
+>&-1316	lelong		x		minimum percentage of free blocks %d,
+>&-1248	lelong		0		TIME optimization
+>&-1248	lelong		1		SPACE optimization
+
+66908	lelong		0x19540119	Unix Fast File system [v2] (little-endian)
+!:mime	filesystem/ffs
+>&-1164	string		x		last mounted on %s,
+>&-696	string		>\0		volume name %s,
+>&-304	leqldate	x		last written at %s,
+>&-1167	byte		x		clean flag %d,
+>&-1168	byte		x		readonly flag %d,
+>&-296	lequad		x		number of blocks %lld,
+>&-288	lequad		x		number of data blocks %lld,
+>&-1332	lelong		x		number of cylinder groups %d,
+>&-1328	lelong		x		block size %d,
+>&-1324	lelong		x		fragment size %d,
+>&-180	lelong		x		average file size %d,
+>&-176	lelong		x		average number of files in dir %d,
+>&-272	lequad		x		pending blocks to free %lld,
+>&-264	lelong		x		pending inodes to free %d,
+>&-664	lequad		x		system-wide uuid %0llx,
+>&-1316	lelong		x		minimum percentage of free blocks %d,
+>&-1248	lelong		0		TIME optimization
+>&-1248	lelong		1		SPACE optimization
+
+9564	belong		0x00011954	Unix Fast File system [v1] (big-endian),
+!:mime	filesystem/ffs
+>7168   belong		0x4c41424c	Apple UFS Volume
+>>7186  string		x		named %s,
+>>7176  belong		x		volume label version %d,
+>>7180  bedate		x		created on %s,
+>8404	string		x		last mounted on %s,
+#>9504	bedate		x		last checked at %s,
+>8224	bedate		x		last written at %s,
+>8401	byte		x		clean flag %d,
+>8228	belong		x		number of blocks %d,
+>8232	belong		x		number of data blocks %d,
+>8236	belong		x		number of cylinder groups %d,
+>8240	belong		x		block size %d,
+>8244	belong		x		fragment size %d,
+>8252	belong		x		minimum percentage of free blocks %d,
+>8256	belong		x		rotational delay %dms,
+>8260	belong		x		disk rotational speed %drps,
+>8320	belong		0		TIME optimization
+>8320	belong		1		SPACE optimization
+
+42332	belong		0x19540119	Unix Fast File system [v2] (big-endian)
+!:mime	filesystem/ffs
+>&-1164	string		x		last mounted on %s,
+>&-696	string		>\0		volume name %s,
+>&-304	beqldate	x		last written at %s,
+>&-1167	byte		x		clean flag %d,
+>&-1168	byte		x		readonly flag %d,
+>&-296	bequad		x		number of blocks %lld,
+>&-288	bequad		x		number of data blocks %lld,
+>&-1332	belong		x		number of cylinder groups %d,
+>&-1328	belong		x		block size %d,
+>&-1324	belong		x		fragment size %d,
+>&-180	belong		x		average file size %d,
+>&-176	belong		x		average number of files in dir %d,
+>&-272	bequad		x		pending blocks to free %lld,
+>&-264	belong		x		pending inodes to free %d,
+>&-664	bequad		x		system-wide uuid %0llx,
+>&-1316	belong		x		minimum percentage of free blocks %d,
+>&-1248	belong		0		TIME optimization
+>&-1248	belong		1		SPACE optimization
+
+66908	belong		0x19540119	Unix Fast File system [v2] (big-endian)
+!:mime	filesystem/ffs
+>&-1164	string		x		last mounted on %s,
+>&-696	string		>\0		volume name %s,
+>&-304	beqldate	x		last written at %s,
+>&-1167	byte		x		clean flag %d,
+>&-1168	byte		x		readonly flag %d,
+>&-296	bequad		x		number of blocks %lld,
+>&-288	bequad		x		number of data blocks %lld,
+>&-1332	belong		x		number of cylinder groups %d,
+>&-1328	belong		x		block size %d,
+>&-1324	belong		x		fragment size %d,
+>&-180	belong		x		average file size %d,
+>&-176	belong		x		average number of files in dir %d,
+>&-272	bequad		x		pending blocks to free %lld,
+>&-264	belong		x		pending inodes to free %d,
+>&-664	bequad		x		system-wide uuid %0llx,
+>&-1316	belong		x		minimum percentage of free blocks %d,
+>&-1248	belong		0		TIME optimization
+>&-1248	belong		1		SPACE optimization

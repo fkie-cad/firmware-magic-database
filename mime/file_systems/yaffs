@@ -1,0 +1,15 @@
+### YAFFS FKIE
+## little endian YAFFS
+# check if entry type is valid
+0	lelong 	<6
+# check if first element is on root level
+>4	lelong	1
+# check if obsolet checksum is set to FF FF
+>>8	string	\xff\xff	YAFFS filesystem, little endian
+!:mime filesystem/yaffs
+
+## big endian YAFFS
+0	belong  <6
+>4	belong	1
+>>8 string	\xff\xff	YAFFS filesystem, big endian
+!:mime filesystem/yaffs

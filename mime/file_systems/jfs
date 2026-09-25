@@ -1,0 +1,52 @@
+# $File: COPYING,v 1.2 2018/09/09 20:33:28 christos Exp $
+# Copyright (c) Ian F. Darwin 1986, 1987, 1989, 1990, 1991, 1992, 1994, 1995.
+# Software written by Ian F. Darwin and others;
+# maintained 1994- Christos Zoulas.
+#
+# This software is not subject to any export provision of the United States
+# Department of Commerce, and may be exported to any country or planet.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice immediately at the beginning of the file, without modification,
+#    this list of conditions, and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#------------------------------------------------------------------------------
+# The following magic definitions originate from the file(1) magic database
+# (https://github.com/file/file, magic/Magdir/filesystems) which is licensed under
+# the terms above. They were adapted for firmware-magic-database (e.g. MIME types).
+#------------------------------------------------------------------------------
+
+# JFS2 (Journaling File System) image. (Old JFS1 has superblock at 0x1000.)
+# See linux/fs/jfs/jfs_superblock.h for layout; see jfs_filsys.h for flags.
+# From: Adam Buchbinder <adam.buchbinder@gmail.com>
+0x8000	string	JFS1	JFS filesystem image
+!:mime filesystem/jfs
+# Because it's text-only magic, check a binary value (version) to be sure.
+# Should always be 2, but mkfs.jfs writes it as 1. Needs to be 2 or 1 to be
+# mountable.
+>&0	lelong	<3	JFS2 filesystem image
+!:mime filesystem/jfs2
+# Label is followed by a UUID; we have to limit string length to avoid
+# appending the UUID in the case of a 16-byte label.
+>>&144	regex	[\x20-\x7E]{1,16}	(label "%s")
+>>&0	lequad	x	\b, %lld blocks
+>>&8	lelong	x	\b, blocksize %d
+>>&32	lelong&0x00000006	>0	(dirty)
+>>&36	lelong	>0	(compressed)

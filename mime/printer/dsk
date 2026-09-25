@@ -1,0 +1,10 @@
+# DSK 1.0
+# Reversed by Fraunhofer FKIE
+0	string	\x1bDSK1.0	DSK1.0 Image
+!:mime firmware/dsk1.0
+>0x0C	ulelong	x		\b, payload size: %d bytes
+
+# Extended DSK 1.0
+0x0C	string	\x1bDSK1.0	Extended DSK1.0 Image
+!:mime firmware/dsk1.0-extended
+>0x18	ulelong	x		\b, payload size: %d bytes

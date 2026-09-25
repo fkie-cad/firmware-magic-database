@@ -1,0 +1,36 @@
+# The MIT License (MIT)
+#
+# Copyright (c) 2010-2015 Craig Heffner
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of
+# this software and associated documentation files (the "Software"), to deal in
+# the Software without restriction, including without limitation the rights to
+# use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+# the Software, and to permit persons to whom the Software is furnished to do so,
+# subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+# FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+# COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+# IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+# CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+#------------------------------------------------------------------------------
+# The following magic definitions originate from binwalk
+# (https://github.com/ReFirmLabs/binwalk, src/binwalk/magic/firmware) which is
+# licensed under the terms above. They were adapted for firmware-magic-database
+# (e.g. MIME types).
+#------------------------------------------------------------------------------
+
+0       string      BLI223WJ0   Thompson/Alcatel encoded firmware,
+>32     byte        x           version: %d.
+>33     byte        x           \b%d.
+>34     byte        x           \b%d.
+>35     byte        x           \b%d,
+>44     belong      x           size: %d,
+>48     ubelong     x           crc: 0x%.8X,
+>35     byte        x           try decryption tool from:
+>35     byte        x           http://download.modem-help.co.uk/mfcs-A/Alcatel/Modems/Misc/

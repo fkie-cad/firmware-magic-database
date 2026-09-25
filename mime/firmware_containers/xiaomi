@@ -1,0 +1,13 @@
+# Xiaomi HDR1 Firmware Image
+0       string  HDR1    Xiaomi HDR1 firmware image,
+!:mime	firmware/xiaomi-hdr1
+>4      ulelong x                   signature offset: %u bytes,
+>8      ulelong x                   crc32: 0x%X
+
+# Xiaomi HDR2 Firmware Image
+0       string  HDR2    Xiaomi HDR2 firmware image,
+!:mime	firmware/xiaomi-hdr2
+>4      ulelong x                   signature offset: %u bytes,
+>8      ulelong x                   crc32: 0x%X,
+>16     string x                    model: %s,
+>24     string x                    region: %s
