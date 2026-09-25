@@ -1,0 +1,130 @@
+# $File: COPYING,v 1.2 2018/09/09 20:33:28 christos Exp $
+# Copyright (c) Ian F. Darwin 1986, 1987, 1989, 1990, 1991, 1992, 1994, 1995.
+# Software written by Ian F. Darwin and others;
+# maintained 1994- Christos Zoulas.
+#
+# This software is not subject to any export provision of the United States
+# Department of Commerce, and may be exported to any country or planet.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice immediately at the beginning of the file, without modification,
+#    this list of conditions, and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#
+# ====================== Microsoft OOXML ======================
+#
+# Taken from the file(1) magic database (magic/Magdir/msooxml, https://github.com/file/file,
+# commit 8cef37b568008dceaae5b6ac1ee37827310da394), licensed under the terms above.
+# Modifications (fkie-cad/firmware-magic-database):
+# - added the MIME type application/zip to the generic "Microsoft OOXML" fallback (e.g. for
+#   Open Packaging Conventions firmware containers like Allen-Bradley .dmk) so that these files
+#   get a MIME type and can be unpacked as ZIP archives
+# - renamed the named test "msooxml" to "fw_msooxml" to avoid clashes with the system magic
+# - raised strength from +10 to +20 so that this entry takes precedence over the system magic
+#
+
+#------------------------------------------------------------------------------
+# $File: msooxml,v 1.24 2025/05/29 15:03:04 christos Exp $
+# msooxml:  file(1) magic for Microsoft Office XML
+# From: Ralf Brown <ralf.brown@gmail.com>
+
+# .docx, .pptx, and .xlsx are XML plus other files inside a ZIP
+#   archive.  The first member file is normally "[Content_Types].xml".
+#   but some libreoffice generated files put this later. Perhaps skip
+#   the "[Content_Types].xml" test?
+# Since MSOOXML doesn't have anything like the uncompressed "mimetype"
+#   file of ePub or OpenDocument, we'll have to scan for a filename
+#   which can distinguish between the three types
+
+0		name		fw_msooxml
+>0		string		word/		Microsoft Word 2007+
+!:mime application/vnd.openxmlformats-officedocument.wordprocessingml.document
+!:ext	docx
+>0		string		ppt/		Microsoft PowerPoint 2007+
+!:mime application/vnd.openxmlformats-officedocument.presentationml.presentation
+!:ext	pptx
+>0		string		xl/		Microsoft Excel 2007+
+!:mime application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+!:ext	xlsx
+>0		string		visio/		Microsoft Visio 2013+
+!:mime application/vnd.ms-visio.drawing.main+xml
+>0		string		AppManifest.xaml	Microsoft Silverlight Application
+!:mime application/x-silverlight-app
+>0		search/100	.nuspec		NuGet package
+!:mime application/vnd.nuget.package
+
+# start by checking for ZIP local file header signature
+0		string		PK\003\004
+!:strength +20
+# make sure the first file is correct
+>0x1E		use		fw_msooxml
+>0x1E		default		x
+>>0x1E		regex		\\[Content_Types\\]\\.xml|_rels/\\.rels|docProps|customXml|.*\\.md|.*\\.png
+# skip to the second local file header
+# since some documents include a 520-byte extra field following the file
+# header, we need to scan for the next header
+>>>&26		search/10000	PK\003\004
+>>>>&26		use		fw_msooxml
+>>>>&26		default		x
+# now skip to the *third* local file header; again, we need to scan due to a
+# 520-byte extra field following the file header
+>>>>>&26	search/10000	PK\003\004
+# and check the subdirectory name to determine which type of OOXML
+# file we have.	 Correct the mimetype with the registered ones:
+# https://technet.microsoft.com/en-us/library/cc179224.aspx
+>>>>>>&26	use		fw_msooxml
+>>>>>>&26	default		x
+# OpenOffice/Libreoffice orders ZIP entry differently, so check the 4th file
+>>>>>>>&26	search/10000	PK\003\004
+>>>>>>>>&26	use		fw_msooxml
+# Some OOXML generators add an extra customXml directory. Check another file.
+>>>>>>>>&26	default		x
+>>>>>>>>>&26	search/10000	PK\003\004
+>>>>>>>>>>&26	use		fw_msooxml
+>>>>>>>>>>&26	default		x
+>>>>>>>>>>>&26	search/10000	PK\003\004
+>>>>>>>>>>>>&26	use		fw_msooxml
+>>>>>>>>>>>>&26	default		x		Microsoft OOXML
+!:mime	application/zip
+>>>>>>>>>>>&26	default		x		Microsoft OOXML
+!:mime	application/zip
+>>>>>>>>>>&26	default		x		Microsoft OOXML
+!:mime	application/zip
+>>>>>>>>>&26	default		x		Microsoft OOXML
+!:mime	application/zip
+>>>>>>>>&26	default		x		Microsoft OOXML
+!:mime	application/zip
+>>>>>>>&26	default		x		Microsoft OOXML
+!:mime	application/zip
+>>>>>>&26	default		x		Microsoft OOXML
+!:mime	application/zip
+>>0x1E		regex		\\[trash\\]
+>>>&26		search/10000	PK\003\004
+>>>>&26		search/10000	PK\003\004
+>>>>>&26	use		fw_msooxml
+>>>>>&26	default		x
+>>>>>>&26	search/10000	PK\003\004
+>>>>>>>&26	use		fw_msooxml
+>>>>>>>&26	default		x		Microsoft OOXML
+!:mime	application/zip
+>>>>>>&26	default		x		Microsoft OOXML
+!:mime	application/zip
+>>>>>&26	default		x		Microsoft OOXML
+!:mime	application/zip
