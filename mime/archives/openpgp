@@ -1,0 +1,213 @@
+# OpenPGP message (RFC 4880 / RFC 9580), e.g. created with "gpg --sign"
+# Used e.g. for signed firmware images (Linksys *.gpg.img)
+# Packet headers: old format (0x80 | tag << 2 | length type) or new format (0xc0 | tag). The body of a packet starts
+# after the length octets
+
+# Contents of a Compressed Data Packet (tag 8), starting with the compression algorithm octet
+0	name		firmware-openpgp-compressed-body
+# uncompressed: the packets of the message follow directly
+>0	ubyte		0
+>>1	use		firmware-openpgp-one-pass-signature
+>>1	use		firmware-openpgp-literal
+# ZIP (raw deflate): check the header of the first deflate block (BFINAL bit, 2 bit BTYPE, ...)
+# stored block: no padding bits set and LEN and NLEN (one's complement of LEN) at offset 2 and 4. As a little endian
+# long, LEN + NLEN * 0x10000 is divisible by 0xffff only if LEN + NLEN is 0, 0xffff or 0x1fffe (both 0 or both 0xffff)
+>0	ubyte		1
+>>1	ubyte&0xfe	0
+>>>2	ulelong%0xffff	0
+>>>>2	ulelong		!0
+>>>>>2	ulelong		!0xffffffff	OpenPGP message, compressed (ZIP)
+!:mime	application/x-openpgp-message
+# fixed Huffman codes: the first symbol is a literal >= 0x80 (the first octet of a packet header), so its code
+# starts with 11 or 1011
+>>1	ubyte&0x1e	0x1a		OpenPGP message, compressed (ZIP)
+!:mime	application/x-openpgp-message
+>>1	ubyte&0x7e	0x6a		OpenPGP message, compressed (ZIP)
+!:mime	application/x-openpgp-message
+# dynamic Huffman codes: at most 286 literal/length codes (HLIT <= 29) and 30 distance codes (HDIST <= 29)
+>>1	ubyte&0x06	0x04
+>>>1	ubyte		<0xf0
+>>>>2	ubyte&0x1f	<0x1e		OpenPGP message, compressed (ZIP)
+!:mime	application/x-openpgp-message
+# ZLIB: CMF with compression method deflate, no preset dictionary (FDICT) and a valid header checksum
+# (CMF * 256 + FLG is a multiple of 31)
+>0	ubyte		2
+>>1	ubyte&0x8f	0x08
+>>>2	ubyte&0x20	0
+>>>>1	ubeshort%31	0		OpenPGP message, compressed (ZLIB)
+!:mime	application/x-openpgp-message
+# BZip2: stream magic and the magic of the first block
+>0	ubyte		3
+>>1	string		BZh
+>>>5	string		\x31\x41\x59\x26\x53\x59	OpenPGP message, compressed (BZip2)
+!:mime	application/x-openpgp-message
+
+# Compressed Data Packet
+0	name		firmware-openpgp-compressed
+# old format (0xa0-0xa3): 1, 2 or 4 octet or indeterminate length (gpg uses the latter)
+>0	ubyte		0xa0
+>>2	use		firmware-openpgp-compressed-body
+>0	ubyte		0xa1
+>>3	use		firmware-openpgp-compressed-body
+>0	ubyte		0xa2
+>>5	use		firmware-openpgp-compressed-body
+>0	ubyte		0xa3
+>>1	use		firmware-openpgp-compressed-body
+# new format (0xc8): 1 octet, 2 octet, partial body or 5 octet length
+>0	ubyte		0xc8
+>>1	ubyte		<0xc0
+>>>2	use		firmware-openpgp-compressed-body
+>>1	ubyte		>0xbf
+>>>1	ubyte		<0xe0
+>>>>3	use		firmware-openpgp-compressed-body
+>>1	ubyte		>0xdf
+>>>1	ubyte		<0xff
+>>>>2	use		firmware-openpgp-compressed-body
+>>1	ubyte		0xff
+>>>6	use		firmware-openpgp-compressed-body
+
+# Contents of a Literal Data Packet (tag 11) that is not part of a signed message, starting with the format: binary (b),
+# text (t), UTF-8 (u), local (l, 1) or MIME (m)
+0	name		firmware-openpgp-literal-body
+>0	ubyte		0x62		OpenPGP message, literal data
+!:mime	application/x-openpgp-message
+>0	ubyte&0xfe	0x74		OpenPGP message, literal data
+!:mime	application/x-openpgp-message
+>0	ubyte&0xfe	0x6c		OpenPGP message, literal data
+!:mime	application/x-openpgp-message
+>0	ubyte		0x31		OpenPGP message, literal data
+!:mime	application/x-openpgp-message
+
+# Literal Data Packet (e.g. "gpg --store -z 0")
+0	name		firmware-openpgp-literal
+# old format (0xac-0xaf): 1, 2 or 4 octet or indeterminate length
+>0	ubyte		0xac
+>>2	use		firmware-openpgp-literal-body
+>0	ubyte		0xad
+>>3	use		firmware-openpgp-literal-body
+>0	ubyte		0xae
+>>5	use		firmware-openpgp-literal-body
+>0	ubyte		0xaf
+>>1	use		firmware-openpgp-literal-body
+# new format (0xcb): 1 octet, 2 octet, partial body or 5 octet length
+>0	ubyte		0xcb
+>>1	ubyte		<0xc0
+>>>2	use		firmware-openpgp-literal-body
+>>1	ubyte		>0xbf
+>>>1	ubyte		<0xe0
+>>>>3	use		firmware-openpgp-literal-body
+>>1	ubyte		>0xdf
+>>>1	ubyte		<0xff
+>>>>2	use		firmware-openpgp-literal-body
+>>1	ubyte		0xff
+>>>6	use		firmware-openpgp-literal-body
+
+# One-Pass Signature Packet (tag 4, without the first octet of the header) for a binary or text document. It is
+# followed by the One-Pass Signature Packets of further signers and finally by the Literal Data Packet
+0	name		firmware-openpgp-one-pass-signature-body
+# version 3: 13 octets
+>0	ubeshort	0x0d03
+>>2	ubyte		<2
+>>>14	use		firmware-openpgp-signed
+# version 6: salt length (16, 24 or 32 depending on the hash algorithm) + 38 octets
+>1	ubyte		6
+>>2	ubyte		<2
+>>>0	ubeshort	0x3606
+>>>>5	ubyte		16
+>>>>>55	use		firmware-openpgp-signed
+>>>0	ubeshort	0x3e06
+>>>>5	ubyte		24
+>>>>>63	use		firmware-openpgp-signed
+>>>0	ubeshort	0x4606
+>>>>5	ubyte		32
+>>>>>71	use		firmware-openpgp-signed
+
+# One-Pass Signature Packet, old format (0x90) or new format (0xc4)
+0	name		firmware-openpgp-one-pass-signature
+>0	ubyte		0x90
+>>1	use		firmware-openpgp-one-pass-signature-body
+>0	ubyte		0xc4
+>>1	use		firmware-openpgp-one-pass-signature-body
+
+# Next packet after a One-Pass Signature Packet
+0	name		firmware-openpgp-signed
+>0	use		firmware-openpgp-one-pass-signature
+# Literal Data Packet, old format (0xac-0xaf) or new format (0xcb)
+>0	ubyte&0xfc	0xac		OpenPGP message, signed
+!:mime	application/x-openpgp-message
+>0	ubyte		0xcb		OpenPGP message, signed
+!:mime	application/x-openpgp-message
+
+# Public-key algorithm of a Public-Key Encrypted Session Key Packet: RSA (1, 2), Elgamal (16), ECDH (18), X25519 (25)
+# or X448 (26)
+0	name		firmware-openpgp-public-key-algorithm
+>0	ubyte		<3
+>>0	ubyte		>0		OpenPGP message, encrypted
+!:mime	application/x-openpgp-message
+>0	ubyte&0xfd	0x10		OpenPGP message, encrypted
+!:mime	application/x-openpgp-message
+>0	ubyte		>24
+>>0	ubyte		<27		OpenPGP message, encrypted
+!:mime	application/x-openpgp-message
+
+# Contents of a Public-Key Encrypted Session Key Packet (tag 1)
+0	name		firmware-openpgp-pkesk-body
+# version 3: 8 octet key ID
+>0	ubyte		3
+>>9	use		firmware-openpgp-public-key-algorithm
+# version 6: length of the key version and fingerprint (0: anonymous recipient, 21: v4 key, 33: v6 key)
+>0	ubyte		6
+>>1	ubyte		0
+>>>2	use		firmware-openpgp-public-key-algorithm
+>>1	ubeshort	0x1504
+>>>23	use		firmware-openpgp-public-key-algorithm
+>>1	ubeshort	0x2106
+>>>35	use		firmware-openpgp-public-key-algorithm
+
+# Contents of a Symmetric-Key Encrypted Session Key Packet (tag 3): symmetric algorithm 1-13 and the S2K specifier
+# (type simple (0), salted (1), iterated and salted (3) or Argon2 (4))
+0	name		firmware-openpgp-skesk-body
+# version 4: S2K specifier directly after the symmetric algorithm
+>0	ubyte		4
+>>1	ubyte		>0
+>>>1	ubyte		<14
+>>>>2	ubyte		<5
+>>>>>2	ubyte		!2		OpenPGP message, encrypted
+!:mime	application/x-openpgp-message
+# version 6: field length, symmetric algorithm, AEAD algorithm (EAX (1), OCB (2) or GCM (3)), S2K specifier length and
+# S2K specifier
+>0	ubyte		6
+>>2	ubyte		>0
+>>>2	ubyte		<14
+>>>>3	ubyte		>0
+>>>>>3	ubyte		<4
+>>>>>>5	ubyte		<5
+>>>>>>>5	ubyte		!2		OpenPGP message, encrypted
+!:mime	application/x-openpgp-message
+
+# the first octet of a packet header always has the most significant bit set
+0	ubyte&0x80	0x80
+# compressed message (e.g. "gpg --sign")
+>0	use		firmware-openpgp-compressed
+# uncompressed signed message ("gpg --sign -z 0")
+>0	use		firmware-openpgp-one-pass-signature
+# message consisting only of a Literal Data Packet ("gpg --store -z 0")
+>0	use		firmware-openpgp-literal
+# encrypted message: starts with a Public-Key Encrypted Session Key Packet ("gpg --encrypt"), old format (0x84, 0x85)
+# or new format (0xc1) with 1 or 2 octet length ...
+0	ubyte		0x84
+>2	use		firmware-openpgp-pkesk-body
+0	ubyte		0x85
+>3	use		firmware-openpgp-pkesk-body
+0	ubyte		0xc1
+>1	ubyte		<0xc0
+>>2	use		firmware-openpgp-pkesk-body
+>1	ubyte		>0xbf
+>>1	ubyte		<0xe0
+>>>3	use		firmware-openpgp-pkesk-body
+# ... or with a Symmetric-Key Encrypted Session Key Packet ("gpg --symmetric"), old format (0x8c) or new format (0xc3)
+0	ubyte		0x8c
+>2	use		firmware-openpgp-skesk-body
+0	ubyte		0xc3
+>1	ubyte		<0xc0
+>>2	use		firmware-openpgp-skesk-body
