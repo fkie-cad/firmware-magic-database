@@ -1,0 +1,10 @@
+# Starlink User Terminal sxverity image (SpaceX custom dm-verity wrapper)
+# Layout: 0x1000 header (four 0x400-byte signed copies) + romfs payload + verity hash tree
+0       string          sxverity        STARLINK sxverity image
+!:mime          firmware/starlink-sxverity
+>0x08           lelong          x               \b, version: %d
+>0x0c           lelong          x               \b, payload size: %d
+>0x14           lelong          x               \b, blocks: %d
+>0x18           lelong          x               \b, hashes: %d
+>0x400          string          sxverity        \b, 4 header copies
+>0x1000         string          -rom1fs-        \b, romfs payload
